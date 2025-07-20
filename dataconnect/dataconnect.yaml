@@ -1,0 +1,12 @@
+specVersion: "v1"
+serviceId: "minimessenger"
+location: "us-central1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "fdcdb"
+      cloudSql:
+        instanceId: "minimessenger-fdc"
+      # schemaValidation: "COMPATIBLE"
+connectorDirs: ["./connector"]
