@@ -1,13 +1,1 @@
-{
-  "emulators": {
-    "dataconnect": {
-      "dataDir": "dataconnect/.dataconnect/pgliteData"
-    }
-  },
-  "dataconnect": {
-    "source": "dataconnect"
-  },
-  "database": {
-    "rules": "database.rules.json"
-  }
-}
+{"flutter":{"platforms":{"android":{"default":{"projectId":"minimessenger-39b1f","appId":"1:161439180516:android:54346da0b2e70dad5eeef1","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"minimessenger-39b1f","appId":"1:161439180516:ios:71f3797fed3247475eeef1","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"minimessenger-39b1f","configurations":{"android":"1:161439180516:android:54346da0b2e70dad5eeef1","ios":"1:161439180516:ios:71f3797fed3247475eeef1"}}}}}}
