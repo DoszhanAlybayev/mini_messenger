@@ -1,32 +1,67 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mini_messenger/pages/login_page.dart';
-
+import 'package:mini_messenger/services/auth_service.dart';
+import 'package:mini_messenger/services/chat_service.dart';
+import 'package:mini_messenger/pages/chat_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  void logout() {
+    final authService = AuthService();
+    authService.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text("Главная"),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () async {
-              await FirebaseAuth.instance.signOut();
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginPage()),
-              );
-            },
-          ),
+          IconButton(onPressed: logout, icon: const Icon(Icons.logout)),
         ],
       ),
-      body: Center(child: Text('Welcome, ${user?.email ?? "user"}')),
+      body: _buildUserList(context),
     );
   }
+}
+
+Widget _buildUserList(BuildContext context) {
+  final ChatService _chatService = ChatService();
+  final AuthService _authService = AuthService();
+
+  return StreamBuilder(
+    stream: _chatService.getUsersStream(),
+    builder: (context, snapshot) {
+      if (snapshot.hasError) {
+        return const Text("Ошибка!");
+      }
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(child: CircularProgressIndicator());
+      }
+
+      final users = snapshot.data!;
+      return ListView.builder(
+        itemCount: users.length,
+        itemBuilder: (context, index) {
+          final user = users[index];
+
+          if (user["uid"] != _authService.getCurrrentUser()!.uid) {
+            return _buildUserListItem(user, context);
+          } else {
+            return Container();
+          }
+        },
+      );
+    },
+  );
+}
+
+Widget _buildUserListItem(Map<String, dynamic> userData, BuildContext context) {
+  return ListTile(
+    title: Text(userData["email"]),
+    onTap: () {
+      //perehod
+      print("Нажали на пользователя: ${userData["email"]}");
+    },
+  );
 }
