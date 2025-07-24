@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mini_messenger/services/auth_service.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -53,10 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 }
 
                 try {
-                  await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                    email: email,
-                    password: password,
-                  );
+                  await signUp(email, password);
                   Navigator.pop(context);
                 } on FirebaseAuthException catch (e) {
                   print('FIREBAE AUTH ERROR: ${e.code} - ${e.message}');

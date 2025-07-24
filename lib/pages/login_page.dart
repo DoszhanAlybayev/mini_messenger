@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_messenger/pages/register_page.dart';
 import 'home_page.dart';
 
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -56,10 +57,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: const InputDecoration(labelText: 'Password'),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: singIn,
-              child: const Text('Login'),
-            ),
+            ElevatedButton(onPressed: singIn, child: const Text('Login')),
             TextButton(
               onPressed: () {
                 Navigator.push(
